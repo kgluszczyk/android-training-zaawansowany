@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.verifone.kurs2.App
 import com.verifone.kurs2.R
@@ -17,9 +16,7 @@ import com.verifone.kurs2.showcaseContentProviders.domain.GetMood
 import com.verifone.kurs2.showcaseContentProviders.domain.ObserveCoffeeIntake
 import com.verifone.kurs2.showcaseContentProviders.domain.SaveCoffeeIntake
 import com.verifone.kurs2.showcaseContentProviders.presentation.CafeViewModel
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_cafe.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class CafeFragment : Fragment() {
@@ -28,12 +25,7 @@ class CafeFragment : Fragment() {
 
     @Inject
     lateinit var cafe: Cafe
-    @Inject
-    lateinit var getMood: GetMood
-    @Inject
-    lateinit var observeCoffeeIntake: ObserveCoffeeIntake
-    @Inject
-    lateinit var saveCoffeeIntake: SaveCoffeeIntake
+    lateinit var cafeViewModelFactory: CafeViewModel.Factory
 
     lateinit var binding: FragmentCafeBinding
 
@@ -49,9 +41,7 @@ class CafeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.appComponent.inject(this)
-        viewModel = ViewModelProviders.of(this)[CafeViewModel::class.java].also {
-            it.init(observeCoffeeIntake, saveCoffeeIntake, getMood)
-        }
+        viewModel = ViewModelProviders.of(this, cafeViewModelFactory)[CafeViewModel::class.java]
         binding.lifecycleOwner = this
         binding.setData(viewModel.observeCoffeeIntake())
         binding.setSubmit {
