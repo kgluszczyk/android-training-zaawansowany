@@ -26,7 +26,5 @@ class CafeViewModel(
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun observeCoffeeIntake() =
-        observeCoffeeIntake.execute()
-            .observeOn(AndroidSchedulers.mainThread())
+    fun observeCoffeeIntake() = observeCoffeeIntake.execute()
 }

@@ -1,5 +1,6 @@
 package com.verifone.kurs2.core.repository
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -27,6 +28,6 @@ interface CoffeeIntakeDao {
     fun getAll(): List<CoffeeIntake>
 
     @Query("SELECT * FROM caffeine")
-    fun observeAll(): Flowable<List<CoffeeIntake>>
+    fun observeAll(): LiveData<List<CoffeeIntake>>
 
 }

@@ -1,5 +1,6 @@
 package com.verifone.kurs2.showcaseContentProviders.domain
 
+import androidx.lifecycle.LiveData
 import com.verifone.kurs2.App
 import com.verifone.kurs2.core.entity.CoffeeIntake
 import com.verifone.kurs2.core.repository.AppDatabase
@@ -12,8 +13,6 @@ class ObserveCoffeeIntake @Inject constructor(
     private val coffeeIntakeDao: CoffeeIntakeDao
 ) {
 
-    fun execute(): Flowable<List<CoffeeIntake>> =
+    fun execute(): LiveData<List<CoffeeIntake>> =
         coffeeIntakeDao.observeAll()
-            .subscribeOn(Schedulers.io())
-
 }

@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.verifone.kurs2.App
 import com.verifone.kurs2.R
 import com.verifone.kurs2.core.cafe.Cafe
-import com.verifone.kurs2.core.repository.CoffeeIntakeDao
+import com.verifone.kurs2.databinding.FragmentCafeBinding
 import com.verifone.kurs2.showcaseContentProviders.domain.GetMood
 import com.verifone.kurs2.showcaseContentProviders.domain.ObserveCoffeeIntake
 import com.verifone.kurs2.showcaseContentProviders.domain.SaveCoffeeIntake
@@ -33,27 +34,24 @@ class CafeFragment : Fragment() {
     @Inject
     lateinit var saveCoffeeIntake: SaveCoffeeIntake
 
+    lateinit var binding: FragmentCafeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_cafe, container, false)
+    ) : View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cafe, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.appComponent.inject(this)
         viewModel = CafeViewModel(observeCoffeeIntake, saveCoffeeIntake, getMood)
-
-        val dbDataStream = viewModel.observeCoffeeIntake()
-            .subscribe({
-                           data.text = it.joinToString(separator = "\n")
-                       }, {
-                           Timber.e(it, "Error while observing DB")
-                       })
-        disposables.add(dbDataStream)
-
-        submit.setOnClickListener {
+        binding.setData(viewModel.observeCoffeeIntake())
+        binding.lifecycleOwner = this
+        binding.setSubmit {
             val currentInput = amount.text.toString()
             val asFloat = currentInput.toFloatOrNull()
             if (asFloat == null) {
