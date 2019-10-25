@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.verifone.kurs2.App
 import com.verifone.kurs2.R
 import com.verifone.kurs2.core.cafe.Cafe
@@ -22,7 +24,6 @@ import javax.inject.Inject
 
 class CafeFragment : Fragment() {
 
-    val disposables = CompositeDisposable()
     lateinit var viewModel: CafeViewModel
 
     @Inject
@@ -48,27 +49,19 @@ class CafeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.appComponent.inject(this)
-        viewModel = CafeViewModel(observeCoffeeIntake, saveCoffeeIntake, getMood)
-        binding.setData(viewModel.observeCoffeeIntake())
+        viewModel = ViewModelProviders.of(this)[CafeViewModel::class.java].also {
+            it.init(observeCoffeeIntake, saveCoffeeIntake, getMood)
+        }
         binding.lifecycleOwner = this
+        binding.setData(viewModel.observeCoffeeIntake())
         binding.setSubmit {
             val currentInput = amount.text.toString()
             val asFloat = currentInput.toFloatOrNull()
             if (asFloat == null) {
                 Toast.makeText(context, "Wrong value", Toast.LENGTH_SHORT).show()
             } else {
-
-                val stream = viewModel.saveCoffeeIntake(asFloat)
-                    .subscribe()
-                disposables.add(stream)
-
+                viewModel.saveCoffeeIntake(asFloat)
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        disposables.clear()
-    }
-
 }
