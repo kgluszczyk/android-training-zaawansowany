@@ -6,9 +6,10 @@ import com.verifone.kurs2.core.repository.AppDatabase
 import com.verifone.kurs2.core.repository.CoffeeIntakeDao
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ObserveCoffeeIntake(
-    val coffeeIntakeDao: CoffeeIntakeDao = (App.container[AppDatabase::class.java] as AppDatabase).coffeeIntakeDao()
+class ObserveCoffeeIntake @Inject constructor(
+    private val coffeeIntakeDao: CoffeeIntakeDao
 ) {
 
     fun execute(): Flowable<List<CoffeeIntake>> =

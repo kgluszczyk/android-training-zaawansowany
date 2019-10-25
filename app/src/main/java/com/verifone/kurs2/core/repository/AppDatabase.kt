@@ -10,14 +10,11 @@ import timber.log.Timber
 
 lateinit var DATABASE: AppDatabase
 
+//todo to be removed
 fun Context.getDatabase(): AppDatabase {
     if (::DATABASE.isInitialized) {
         return DATABASE
     }
-
-    DATABASE = Room.databaseBuilder(this, AppDatabase::class.java, "app-db")
-        .addMigrations(migration_1_2)
-        .build()
 
     return DATABASE
 }

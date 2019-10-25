@@ -23,8 +23,6 @@ const val ACTION_IN_APP_MESSAGE = "com.verifone.kurs2.IN_APP_ACTION"
 class App : Application() {
 
     companion object{
-        val container = HashMap<Class<out Any>, Any>()
-
         lateinit var appComponent: AppComponent
     }
 

@@ -3,8 +3,9 @@ package com.verifone.kurs2.showcaseContentProviders.domain
 import com.verifone.kurs2.core.entity.CoffeeIntake
 import com.verifone.kurs2.core.repository.CoffeeIntakeDao
 import java.lang.IllegalStateException
+import javax.inject.Inject
 
-class SaveCoffeeIntake(
+class SaveCoffeeIntake @Inject constructor(
     val coffeeIntakeDao: CoffeeIntakeDao
 ) {
 

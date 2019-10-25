@@ -8,7 +8,7 @@ import dagger.Component
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Component(modules = [MilkAnimalModule::class, MilkPlantModule::class, MilkTypeModule::class])
+@Component(modules = [MilkAnimalModule::class, MilkPlantModule::class, MilkTypeModule::class, AppModule::class])
 @Singleton
 interface AppComponent {
     fun inject(app:App)
