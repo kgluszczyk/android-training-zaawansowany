@@ -5,11 +5,8 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.verifone.kurs2.showcaseAnimation.AnimationFragment
 import com.verifone.kurs2.showcaseBroadcastReceivers.ReceiversFragment
-import com.verifone.kurs2.showcaseContentProviders.ContentProvidersFragment
+import com.verifone.kurs2.showcaseContentProviders.CafeFragment
 import com.verifone.kurs2.showcaseServices.ServicesFragment
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     fun openContentProvidersFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content, ContentProvidersFragment())
+            .replace(R.id.content, CafeFragment())
             .addToBackStack(null)
             .commit()
     }
