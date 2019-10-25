@@ -23,11 +23,13 @@ class CafeFragment : Fragment() {
 
     lateinit var viewModel: CafeViewModel
 
+    lateinit var binding: FragmentCafeBinding
+
     @Inject
     lateinit var cafe: Cafe
-    lateinit var cafeViewModelFactory: CafeViewModel.Factory
 
-    lateinit var binding: FragmentCafeBinding
+    @Inject
+    lateinit var cafeViewModelFactory: CafeViewModel.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater,
