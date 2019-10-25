@@ -10,6 +10,7 @@ import com.verifone.kurs2.core.cafe.Milk
 import com.verifone.kurs2.core.di.AppComponent
 import com.verifone.kurs2.core.di.DaggerAppComponent
 import com.verifone.kurs2.core.di.MilkPlantModule
+import com.verifone.kurs2.core.repository.CoffeeIntakeDao
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

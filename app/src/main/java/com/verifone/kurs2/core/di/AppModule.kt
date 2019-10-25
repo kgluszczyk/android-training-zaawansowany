@@ -21,16 +21,4 @@ class AppModule {
         Room.databaseBuilder(app.applicationContext, AppDatabase::class.java, "app-db")
             .addMigrations(migration_1_2)
             .build()
-
-    @Provides
-    @Singleton
-    fun provideConfeIntakeDao(db: AppDatabase) = db.coffeeIntakeDao()
-
-    @Provides
-    @Singleton
-    fun provideCafeViewModelFactory(
-        observeCoffeeIntake: ObserveCoffeeIntake,
-        saveCoffeeIntake: SaveCoffeeIntake,
-        getMood: GetMood
-    ) = CafeViewModel.Factory(observeCoffeeIntake, saveCoffeeIntake, getMood)
 }

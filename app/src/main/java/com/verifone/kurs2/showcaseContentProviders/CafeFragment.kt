@@ -12,6 +12,7 @@ import com.verifone.kurs2.App
 import com.verifone.kurs2.R
 import com.verifone.kurs2.core.cafe.Cafe
 import com.verifone.kurs2.databinding.FragmentCafeBinding
+import com.verifone.kurs2.showcaseContentProviders.di.CafeFragmetnModule
 import com.verifone.kurs2.showcaseContentProviders.domain.GetMood
 import com.verifone.kurs2.showcaseContentProviders.domain.ObserveCoffeeIntake
 import com.verifone.kurs2.showcaseContentProviders.domain.SaveCoffeeIntake
@@ -24,9 +25,6 @@ class CafeFragment : Fragment() {
     lateinit var viewModel: CafeViewModel
 
     lateinit var binding: FragmentCafeBinding
-
-    @Inject
-    lateinit var cafe: Cafe
 
     @Inject
     lateinit var cafeViewModelFactory: CafeViewModel.Factory
@@ -42,7 +40,8 @@ class CafeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.appComponent.inject(this)
+        val fragmentComponent = App.appComponent.plusCafeFragmentComponent(CafeFragmetnModule())
+        fragmentComponent.inject(this)
         viewModel = ViewModelProviders.of(this, cafeViewModelFactory)[CafeViewModel::class.java]
         binding.lifecycleOwner = this
         binding.setData(viewModel.observeCoffeeIntake())

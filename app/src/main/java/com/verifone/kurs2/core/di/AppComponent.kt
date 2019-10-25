@@ -3,6 +3,8 @@ package com.verifone.kurs2.core.di
 import com.verifone.kurs2.App
 import com.verifone.kurs2.MainActivity
 import com.verifone.kurs2.showcaseContentProviders.CafeFragment
+import com.verifone.kurs2.showcaseContentProviders.di.CafeFragmentComponent
+import com.verifone.kurs2.showcaseContentProviders.di.CafeFragmetnModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Named
@@ -13,7 +15,8 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(app:App)
     fun inject(activity: MainActivity)
-    fun inject(fragment: CafeFragment)
+
+    fun plusCafeFragmentComponent(cafeFragmentModule : CafeFragmetnModule) : CafeFragmentComponent
 
     @Component.Builder
     interface Builder {
