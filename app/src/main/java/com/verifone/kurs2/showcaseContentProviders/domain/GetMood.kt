@@ -1,10 +1,13 @@
 package com.verifone.kurs2.showcaseContentProviders.domain
 
+import com.verifone.kurs2.core.di.FragmentScope
 import com.verifone.kurs2.core.entity.Mood
 import com.verifone.kurs2.core.entity.MoodExt
+import javax.inject.Inject
 import kotlin.random.Random
 
-class GetMood {
+@FragmentScope
+class GetMood @Inject constructor() {
 
     fun execute(amount: Float) = when (amount.toInt()){
         in 5..10 -> Mood.GOOD_ENOUGH

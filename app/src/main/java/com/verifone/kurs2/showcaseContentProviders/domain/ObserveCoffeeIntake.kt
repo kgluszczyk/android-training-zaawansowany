@@ -1,18 +1,16 @@
 package com.verifone.kurs2.showcaseContentProviders.domain
 
-import com.verifone.kurs2.App
+import androidx.lifecycle.LiveData
+import com.verifone.kurs2.core.di.FragmentScope
 import com.verifone.kurs2.core.entity.CoffeeIntake
-import com.verifone.kurs2.core.repository.AppDatabase
 import com.verifone.kurs2.core.repository.CoffeeIntakeDao
-import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ObserveCoffeeIntake(
-    val coffeeIntakeDao: CoffeeIntakeDao = (App.container[AppDatabase::class.java] as AppDatabase).coffeeIntakeDao()
+@FragmentScope
+class ObserveCoffeeIntake @Inject constructor(
+    val coffeeIntakeDao: CoffeeIntakeDao
 ) {
 
-    fun execute(): Flowable<List<CoffeeIntake>> =
+    fun execute(): LiveData<List<CoffeeIntake>> =
         coffeeIntakeDao.observeAll()
-            .subscribeOn(Schedulers.io())
-
 }
